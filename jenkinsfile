@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+    stages {
+        stage ('clone') {
+            steps {
+                git 'https://github.com/vutrieuIT/jenkins-docker.git'
+            }
+        }
+
+        stage ('build') {
+            steps {
+                withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
+                    sh 'docker build -t trieuvu/jenkins-docker .'
+                    sh 'docker push trieuvu/jenkins-docker'
+                }
+            }
+        }
+    }
+}
