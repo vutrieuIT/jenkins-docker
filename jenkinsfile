@@ -21,4 +21,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail bcc: '', body: 'jenkins build', cc: '', from: '', replyTo: '', subject: 'Jenkin build', to: 'vutrieu2002@gmail.com'
+        }
+    }
 }
