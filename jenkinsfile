@@ -17,9 +17,7 @@ pipeline {
         }
         stage ('deploy') {
             steps {
-                sshagent(['ssh-remote']) {
-                    sh 'ssh -o StrictHostKeyChecking=no -l root 14.225.205.36 touch text.txt'
-                }
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'remote-serve', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'cp dockerfile dockerfile1', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'dockerfile')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
