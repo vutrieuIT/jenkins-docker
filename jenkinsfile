@@ -15,5 +15,12 @@ pipeline {
                 }
             }
         }
+        stage ('deploy') {
+            steps {
+                sshagent(['ssh-remote']) {
+                    sh 'ssh -o StrictHostKeyChecking=no -l root 14.225.205.36 touch /'
+                }
+            }
+        }
     }
 }
